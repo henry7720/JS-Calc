@@ -36,7 +36,8 @@ function valueOfTerm(expression) {
     while (expression[0] === '*' || expression[0] === '/' || expression[0] === '%') {
         if (expression[0] === '*') {
             expression.shift();
-            value *= numberFiltration(valueOfFactor(expression));
+            let tempCall = valueOfFactor(expression);
+            value = numberFiltration(value * tempCall);
         } else if (expression[0] === '/') {
             expression.shift();
             let tempCall = valueOfFactor(expression);
@@ -61,7 +62,7 @@ function valueOfTerm(expression) {
 function valueOfFactor(expression) {
     if (expression[0] === '-') {
         expression.shift();
-        return -1 * numberFiltration(valueOfFactor(expression));
+        return -1 * valueOfFactor(expression);
     } else if (expression[0] === '(') {
         expression.shift();
         let value = parseExpression(expression);
