@@ -1,9 +1,10 @@
 
 const RADIX = 10;
+const PRECISION = 8;
 
 /* A guaranteed way to provide an appropriately formatted float */
 function numberFiltration(value) {
-    return parseFloat(Number(value.toString()).toFixed(8));
+    return parseFloat(Number(value).toFixed(PRECISION));
 }
 
 /* Given an array of characters representing a mathematical expression 
