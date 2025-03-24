@@ -43,7 +43,14 @@ document.getElementById("right-paren").addEventListener("click", function () {
 document.getElementById("sqrt").addEventListener("click", function () {
     handleOldOutOps();
 
-    let evaluation = Math.sqrt(parseExpression(calculatorValue));
+    calculatorValue = parseExpression(outputBox.value);
+
+    if (calculatorValue < 0) {
+        alert("Taking a square root of a negative number is not allowed. Please fix your input value.");
+        return;
+    }
+
+    let evaluation = Math.sqrt(calculatorValue);
     calculatorValue = numberFiltration(evaluation).toString();
     outputBox.value = calculatorValue;
 });
