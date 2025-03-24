@@ -34,12 +34,15 @@ function valueOfTerm(expression) {
             expression.shift();
             let temp_call = valueOfFactor(expression);
             if (temp_call === 0) {
-                throw new Error("Division by zero is not allowed.");
+                throw new Error("Division by zero is undefined.");
             }
             value /= temp_call;
         } else if (expression[0] === '%') {
             expression.shift();
             let temp_call = valueOfFactor(expression);
+            if (temp_call === 0) {
+                throw new Error("Division by zero is undefined.");
+            }
             value %= temp_call;
         }
     }
