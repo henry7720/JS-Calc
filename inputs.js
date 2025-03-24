@@ -10,15 +10,11 @@ document.getElementById("calculate").addEventListener("click", function () {
     }
 
     try {
-        calculatorValue = parseExpression(calculatorValue);
+        calculatorValue = parseExpression(calculatorValue).toString();
     } catch (e) {
         alert("Division by zero is not allowed. Please fix your input value.");
     }
 
-    let numericValue = Number(calculatorValue);
-    if (!Number.isInteger(numericValue)) {
-        calculatorValue = parseFloat(numericValue.toFixed(8).toString());
-    }
     outputBox.value = calculatorValue;
 });
 
@@ -26,15 +22,11 @@ document.getElementById("output-form").addEventListener("submit", function (even
     event.preventDefault();
 
     try {
-        calculatorValue = parseExpression(outputBox.value);
+        calculatorValue = parseExpression(outputBox.value).toString();
     } catch (e) {
         alert("Division by zero is not allowed. Please fix your input value.");
     }
 
-    let numericValue = Number(calculatorValue);
-    if (!Number.isInteger(numericValue)) {
-        calculatorValue = parseFloat(numericValue.toFixed(8).toString());
-    }
     outputBox.value = calculatorValue;
 });
 

@@ -1,4 +1,10 @@
+
 const RADIX = 10;
+
+/* A guaranteed way to provide an appropriately formatted float */
+function numberFiltration(value) {
+    return parseFloat(Number(value.toString()).toFixed(8));
+}
 
 /* Given an array of characters representing a mathematical expression 
 (a term, which is defined below, followed by a + or - character and then by another term any number of times) 
@@ -36,15 +42,16 @@ function valueOfTerm(expression) {
             if (temp_call === 0) {
                 throw new Error("Division by zero is undefined.");
             }
-            value /= temp_call;
-        } else if (expression[0] === '%') {
-            expression.shift();
-            let temp_call = valueOfFactor(expression);
-            if (temp_call === 0) {
-                throw new Error("Division by zero is undefined.");
-            }
-            value %= temp_call;
+            value = numberFiltration(value / temp_call);
         }
+        // else if (expression[0] === '%') {
+        //     expression.shift();
+        //     let temp_call = valueOfFactor(expression);
+        //     if (temp_call === 0) {
+        //         throw new Error("Division by zero is undefined.");
+        //     }
+        //     value %= temp_call;
+        // }
     }
     return value;
 }
@@ -73,5 +80,7 @@ function valueOfDigitSequence(expression) {
         }
         numberStr += expression.shift();
     }
-    return parseFloat(numberStr);
+
+    // Convert numberStr to a number, pull 8 digits max, then parsefloat drops trailing zeros
+    return numberFiltration(numberStr);
 }

@@ -33,13 +33,20 @@ document.getElementById("right-paren").addEventListener("click", function () {
     outputBox.value = calculatorValue;
 });
 
-document.getElementById("mod").addEventListener("click", function () {
-    handleOldOutOps();
-    calculatorValue += "%";
+// document.getElementById("mod").addEventListener("click", function () {
+//     handleOldOutOps();
+//     calculatorValue += "%";
 
+//     outputBox.value = calculatorValue;
+// });
+
+document.getElementById("sqrt").addEventListener("click", function () {
+    handleOldOutOps();
+
+    let evaluation = Math.sqrt(parseExpression(calculatorValue));
+    calculatorValue = numberFiltration(evaluation).toString();
     outputBox.value = calculatorValue;
 });
-
 
 document.getElementById("add").addEventListener("click", function () {
     handleOldOutOps();
