@@ -36,22 +36,22 @@ function valueOfTerm(expression) {
     while (expression[0] === '*' || expression[0] === '/' || expression[0] === '%') {
         if (expression[0] === '*') {
             expression.shift();
-            value *= valueOfFactor(expression);
+            value *= numberFiltration(valueOfFactor(expression));
         } else if (expression[0] === '/') {
             expression.shift();
-            let temp_call = valueOfFactor(expression);
-            if (temp_call === 0) {
+            let tempCall = valueOfFactor(expression);
+            if (tempCall === 0) {
                 throw new Error("Division by zero is undefined.");
             }
-            value = numberFiltration(value / temp_call);
+            value = numberFiltration(value / tempCall);
         }
         // else if (expression[0] === '%') {
         //     expression.shift();
-        //     let temp_call = valueOfFactor(expression);
-        //     if (temp_call === 0) {
+        //     let tempCall = valueOfFactor(expression);
+        //     if (tempCall === 0) {
         //         throw new Error("Division by zero is undefined.");
         //     }
-        //     value %= temp_call;
+        //     value = numberFiltration(value % tempCall);
         // }
     }
     return value;
@@ -61,7 +61,7 @@ function valueOfTerm(expression) {
 function valueOfFactor(expression) {
     if (expression[0] === '-') {
         expression.shift();
-        return -1 * valueOfFactor(expression);
+        return -1 * numberFiltration(valueOfFactor(expression));
     } else if (expression[0] === '(') {
         expression.shift();
         let value = parseExpression(expression);
