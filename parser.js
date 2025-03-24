@@ -19,10 +19,12 @@ function parseExpression(expression) {
     while (expression[0] === '+' || expression[0] === '-') {
         if (expression[0] === '+') {
             expression.shift();
-            value += valueOfTerm(expression);
+            let tempCall = valueOfTerm(expression);
+            value = numberFiltration(value + tempCall);
         } else if (expression[0] === '-') {
             expression.shift();
-            value -= valueOfTerm(expression);
+            let tempCall = valueOfTerm(expression);
+            value = numberFiltration(value - tempCall);
         }
     }
     return value;
