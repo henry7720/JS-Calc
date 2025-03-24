@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>JS Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td colspan="4">
+                <form id="output-form" action=""><input type="text" id="output-box" value="0"></form>
+            </td>
+        </tr>
+        <tr>
+            <td><button id="zero">0</button></td>
+            <td><button id="one">1</button></td>
+            <td><button id="two">2</button></td>
+            <td><button id="add">+</button></td>
+        </tr>
+        <tr>
+            <td><button id="three">3</button></td>
+            <td><button id="four">4</button></td>
+            <td><button id="five">5</button></td>
+            <td><button id="minus">-</button></td>
+        </tr>
+        <tr>
+            <td><button id="six">6</button></td>
+            <td><button id="seven">7</button></td>
+            <td><button id="eight">8</button></td>
+            <td><button id="mult">*</button></td>
+        </tr>
+        <tr>
+            <td><button id="nine">9</button></td>
+            <td><button id="mod">%</button></td>
+            <td><button id="decimal">.</button></td>
+            <td><button id="div">/</button></td>
+        </tr>
+        <tr>
+            <td><button id="left-paren">(</button></td>
+            <td><button id="right-paren">)</button></td>
+            <td><button id="calculate">=</button></td>
+            <td><button id="clear">Clear</button></td>
+        </tr>
+    </table>
+
+    <script src="numbers.js"></script>
+    <script src="operators.js"></script>
+    <script src="parser.js"></script>
+    <script src="inputs.js"></script>
+</body>
+
+</html>
