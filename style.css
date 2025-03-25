@@ -1,5 +1,6 @@
 body {
     font-family: 'Arial', 'Liberation Sans', sans-serif;
+    overflow-x: hidden;
 }
 
 button:hover {
@@ -40,6 +41,6 @@ input#output-box {
     }
 
     input#output-box {
-        font-size: 15vw !important;
+        font-size: 15vw;
     }
 }
