@@ -1,18 +1,5 @@
-/* Placeholder for stylesheet file */
 body {
     font-family: 'Arial', 'Liberation Sans', sans-serif;
-}
-
-h4 {
-    color: red;
-}
-
-td button {
-    /* makes circular if they are square */
-    width: 4.5em;
-    height: 4.5em;
-    font-size: 1.5em;
-    border-radius: .5em;
 }
 
 button:hover {
@@ -26,14 +13,33 @@ button:active {
 }
 
 td {
-    width: 4em;
+    width: 4.5em;
+}
+
+td button {
+    /* makes circular if they are square */
+    width: 4.5em;
+    height: 4.5em;
+    font-size: 1.5em;
+    border-radius: .5em;
 }
 
 input#output-box {
     width: 100%;
     font-size: 4em;
     border: 3px solid black;
+    box-sizing: border-box;
 }
 
-/* Add table styling here */
-/* Current idea is to make an output text area with id output box if we are allowed to use table, then button can directly call our ported calculator parsing, etc. objects */
+@media screen and (max-width: 600px) {
+    td button {
+        width: 23vw;
+        height: 23vw;
+        font-size: 5vw;
+        border-radius: .5em;
+    }
+
+    input#output-box {
+        font-size: 15vw !important;
+    }
+}
