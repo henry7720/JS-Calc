@@ -56,6 +56,12 @@ function valueOfTerm(expression) {
         //     }
         //     value = numberFiltration(value % tempCall);
         // }
+        else if (nextChar === '(' || /\d/.test(nextChar)) {
+            let nextValue = valueOfFactor(expression);
+            value = numberFiltration(value * nextValue);
+        } else {
+            break;
+        }
     }
     return value;
 }
