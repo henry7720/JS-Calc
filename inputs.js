@@ -31,9 +31,8 @@ document.getElementById("output-form").addEventListener("submit", function (even
 outputBox.addEventListener("focusin", function () {
     if (outputBox.value === "0") {
         calculatorValue = "";
+        outputBox.value = calculatorValue;
     }
-
-    outputBox.value = calculatorValue;
 });
 
 outputBox.addEventListener("focusout", function () {
