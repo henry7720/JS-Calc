@@ -1,6 +1,14 @@
 function handleOldOutOps() {
-    if (outputBox.value === "0" || outputBox.value.trim().toLowerCase() === "nan") {
+    if (outputBox.value === "0" || outputBox.value.trim().toLowerCase().contains("nan")) {
         calculatorValue = "0";
+    }
+}
+
+function handleOpReplacement(operator) {
+    if (outputBox.value === "0" || outputBox.value.trim().toLowerCase().contains("nan")) {
+        calculatorValue = operator;
+    } else {
+        calculatorValue += operator;
     }
 }
 
@@ -19,12 +27,7 @@ document.getElementById("div").addEventListener("click", function () {
 });
 
 document.getElementById("left-paren").addEventListener("click", function () {
-    if (outputBox.value === "0" || calculatorValue === "" || outputBox.value.trim().toLowerCase() === "nan") {
-        calculatorValue = "(";
-
-    } else {
-        calculatorValue += "(";
-    }
+    handleOpReplacement("(");
     outputBox.value = calculatorValue;
 });
 
@@ -42,7 +45,6 @@ document.getElementById("right-paren").addEventListener("click", function () {
 
 document.getElementById("sqrt").addEventListener("click", function () {
     handleOldOutOps();
-
     calculatorValue = parseExpression(outputBox.value);
 
     if (calculatorValue < 0) {
@@ -63,15 +65,13 @@ document.getElementById("add").addEventListener("click", function () {
 });
 
 document.getElementById("minus").addEventListener("click", function () {
-    if (outputBox.value === "0" || outputBox.value.trim().toLowerCase() === "nan") {
-        calculatorValue = "-";
-    } else {
-        calculatorValue += "-";
-    }
+    handleOpReplacement("-");
     outputBox.value = calculatorValue;
 });
 
 document.getElementById("decimal").addEventListener("click", function () {
+    handleOldOutOps();
     calculatorValue += ".";
+
     outputBox.value = calculatorValue;
 });

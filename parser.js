@@ -15,16 +15,19 @@ function parseExpression(expression) {
     if (typeof expression === "string") {
         expression = expression.split("");
     }
+
     let value = valueOfTerm(expression);
-    while (expression[0] === '+' || expression[0] === '-') {
-        if (expression[0] === '+') {
+    while (expression.length > 0) {
+        if (expression[0] === "+") {
             expression.shift();
             let tempCall = valueOfTerm(expression);
             value = numberFiltration(value + tempCall);
-        } else if (expression[0] === '-') {
+        } else if (expression[0] === "-") {
             expression.shift();
             let tempCall = valueOfTerm(expression);
             value = numberFiltration(value - tempCall);
+        } else {
+            break;
         }
     }
     return value;
@@ -35,12 +38,12 @@ The function evaluates the term and returns the value.
 */
 function valueOfTerm(expression) {
     let value = valueOfFactor(expression);
-    while (expression[0] === '*' || expression[0] === '/' || expression[0] === '%') {
-        if (expression[0] === '*') {
+    while (expression.length > 0) {
+        if (expression[0] === "*") {
             expression.shift();
             let tempCall = valueOfFactor(expression);
             value = numberFiltration(value * tempCall);
-        } else if (expression[0] === '/') {
+        } else if (expression[0] === "/") {
             expression.shift();
             let tempCall = valueOfFactor(expression);
             if (tempCall === 0) {
@@ -48,7 +51,7 @@ function valueOfTerm(expression) {
             }
             value = numberFiltration(value / tempCall);
         }
-        // else if (expression[0] === '%') {
+        // else if (expression[0] === "%") {
         //     expression.shift();
         //     let tempCall = valueOfFactor(expression);
         //     if (tempCall === 0) {
@@ -56,7 +59,7 @@ function valueOfTerm(expression) {
         //     }
         //     value = numberFiltration(value % tempCall);
         // }
-        else if (nextChar === '(' || /\d/.test(nextChar)) {
+        else if (expression[0] === "(" || /\d/.test(expression[0])) {
             let nextValue = valueOfFactor(expression);
             value = numberFiltration(value * nextValue);
         } else {
@@ -68,29 +71,56 @@ function valueOfTerm(expression) {
 
 // A factor is an expression in parentheses, a digit sequence (including decimals), or a negated factor. The function evaluates the factor and returns its value.
 function valueOfFactor(expression) {
-    if (expression[0] === '-') {
+    if (expression[0] === "-") {
         expression.shift();
         return -1 * valueOfFactor(expression);
-    } else if (expression[0] === '(') {
+    } else if (expression[0] === "(") {
         expression.shift();
         let value = parseExpression(expression);
-        expression.shift(); // Remove the ')'
+        expression.shift(); // Remove the ")"
         return value;
     } else {
         return valueOfDigitSequence(expression);
     }
 }
 
-// A digit sequence is a sequence of digits possibly including a decimal point. The function evaluates the digit sequence and returns its value as a float.
+// Returns the digit sequence
 function valueOfDigitSequence(expression) {
+    // String to build the number, including significand and exponent
     let numberStr = "";
-    while (/\d/.test(expression[0]) || expression[0] === '.') {
-        if (expression[0] === '.' && numberStr.includes('.')) {
-            break; // Stop if trying to add a second decimal point
+    let hasDecimal = false; // Flag to ensure only one decimal point is included before the exponent
+    let hasExponent = false; // Flag to ensure only one exponent marker ('e' or 'E') is included
+
+    // Loop through the expression until we encounter a character that isn't part of the number
+    while (expression.length > 0) {
+        let currentChar = expression[0]; // Get the current character
+
+        if (/\d/.test(currentChar)) {
+            // If the currentCharacter is a digit, append it to numberStr and remove it from expression
+            numberStr += currentChar;
+            expression.shift();
+        } else if (currentChar === "." && !hasDecimal && !hasExponent) {
+            // If the currentCharacter is a decimal point and we haven't already included one or an exponent,
+            // append it to numberStr, set hasDecimal to true, and remove it from expression
+            hasDecimal = true;
+            numberStr += currentChar;
+            expression.shift();
+        } else if ((currentChar === "e" || currentChar === "E") && !hasExponent) {
+            // If the currentCharacter is 'e' or 'E' and we haven't already included an exponent,
+            // append it to numberStr, set hasExponent to true, and remove it from expression
+            hasExponent = true;
+            numberStr += currentChar;
+            expression.shift();
+            // Check for an optional sign (+ or -) immediately after the exponent marker
+            if (expression[0] === "+" || expression[0] === "-") {
+                numberStr += expression.shift();
+            }
+        } else {
+            // If the currentCharacter doesn't match any of the above (e.g., an operator like '+'), stop parsing there
+            break;
         }
-        numberStr += expression.shift();
     }
 
-    // Convert numberStr to a number, pull 8 digits max, then parsefloat drops trailing zeros
+    // Convert the built string to a number and apply filtration to ensure consistent precision
     return numberFiltration(numberStr);
 }
