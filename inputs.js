@@ -5,29 +5,27 @@ document.getElementById("clear").addEventListener("click", function () {
 });
 
 document.getElementById("calculate").addEventListener("click", function () {
-    if (calculatorValue === "") {
-        return;
-    }
+    calculatorValue = outputBox.value;
 
     try {
         calculatorValue = parseExpression(calculatorValue).toString();
+        outputBox.value = calculatorValue;
     } catch (e) {
         alert("Division by zero is not allowed. Please fix your input value.");
     }
-
-    outputBox.value = calculatorValue;
 });
 
 document.getElementById("output-form").addEventListener("submit", function (event) {
     event.preventDefault();
 
+    calculatorValue = outputBox.value;
+
     try {
-        calculatorValue = parseExpression(outputBox.value).toString();
+        calculatorValue = parseExpression(calculatorValue).toString();
+        outputBox.value = calculatorValue;
     } catch (e) {
         alert("Division by zero is not allowed. Please fix your input value.");
     }
-
-    outputBox.value = calculatorValue;
 });
 
 outputBox.addEventListener("focusin", function () {

@@ -1,11 +1,11 @@
 function handleOldOutOps() {
-    if (outputBox.value === "0" || outputBox.value.trim().toLowerCase().contains("nan")) {
+    if (outputBox.value === "0" || outputBox.value.trim().toLowerCase().includes("nan")) {
         calculatorValue = "0";
     }
 }
 
 function handleOpReplacement(operator) {
-    if (outputBox.value === "0" || outputBox.value.trim().toLowerCase().contains("nan")) {
+    if (outputBox.value === "0" || outputBox.value.trim().toLowerCase().includes("nan")) {
         calculatorValue = operator;
     } else {
         calculatorValue += operator;
